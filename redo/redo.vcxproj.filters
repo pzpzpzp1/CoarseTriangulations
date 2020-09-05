@@ -42,6 +42,9 @@
     <ClCompile Include="main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="simulator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Imagem.h">
@@ -72,6 +75,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="simulator.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="redo.rc" />

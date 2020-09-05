@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Documents\redo\deps\polyscope\deps\imgui\imgui;D:\Documents\redo\deps\polyscope\deps\glm;D:\Documents\redo\deps\polyscope\include;D:\Documents\redo\deps\lodepng;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Documents\redo\deps\lodepng;D:\Documents\redo\deps\polyscope\include;D:\Documents\redo\deps\polyscope\deps\glm;D:\Documents\redo\deps\polyscope\deps\imgui\imgui;$(IncludePath)</IncludePath>
     <SourcePath>D:\Documents\redo\deps\polyscope\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -94,6 +94,7 @@
     <ClCompile Include="Imagem.cpp" />
     <ClCompile Include="linear.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="simulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="approx.h" />
@@ -105,10 +106,16 @@
     <ClInclude Include="point.cuh" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="segment.cuh" />
+    <ClInclude Include="simulator.h" />
     <ClInclude Include="triangle.cuh" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="redo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\deps\polyscope\build\src\polyscope.vcxproj">
+      <Project>{ca6149d7-1aa9-3227-b0d7-5a9d941b4fef}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
