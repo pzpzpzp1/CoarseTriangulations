@@ -1,4 +1,4 @@
 redo/x64/*
 x64/*
-deps/*
 .vs/*
+deps/polyscope/*
