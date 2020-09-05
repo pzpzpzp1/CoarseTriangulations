@@ -101,8 +101,12 @@
     <ClInclude Include="parallelInt.cuh" />
     <ClInclude Include="pixel.cuh" />
     <ClInclude Include="point.cuh" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="segment.cuh" />
     <ClInclude Include="triangle.cuh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="redo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

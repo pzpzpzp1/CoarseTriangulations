@@ -68,5 +68,9 @@
     <ClInclude Include="approx.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="redo.rc" />
   </ItemGroup>
 </Project>
