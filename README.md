@@ -6,17 +6,18 @@ A saliency map can be provided which influences what part of the image is most i
 
 ## Credits
 
-CoarseTriangulations Linux Version: https://github.mit.edu/liwanlin/image-triangulation
-Original implementation of the method was done by Wanlin Li. This version is only accessible to members of MIT.
+Original implementation of the image triangulations method was written by Wanlin Li for Linux. This version is only accessible to members of MIT:
+ https://github.mit.edu/liwanlin/image-triangulation
 
 Polyscope: www.polyscope.run
 
 lodepng: https://github.com/lvandeve/lodepng
-Thank god this exists. libpng, and zlib support for windows is rather lacking in comparison.
+(Thank god this exists. libpng, and zlib support for windows is rather lacking in comparison.)
 
 ## Requirements
 
-Nvidia GPU with CUDA toolkits 
+Nvidia GPU with CUDA toolkits
+
 Visual Studio
 
 ## Compiling
