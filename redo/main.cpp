@@ -1,9 +1,5 @@
 #include <iostream>
 #include <fstream>
-//#include "../deps/polyscope/include/polyscope/polyscope.h"
-//#include "../deps/polyscope/include/polyscope/surface_mesh.h"
-//#include "../deps/polyscope/include/polyscope/point_cloud.h"
-//#include "../deps/polyscope/include/polyscope/view.h"
 #include "polyscope/polyscope.h"
 #include "polyscope/surface_mesh.h"
 #include "polyscope/point_cloud.h"
@@ -14,7 +10,7 @@
 #include "Imagem.h"
 
 // using namespace matlab::engine;
-
+/*
 static const double DENSITY_DEFAULT = 0.05; // experimentally a decent starting density
 static const int DX_DEFAULT = 50; // sampling default
 
@@ -108,6 +104,7 @@ void showEdges(Approx *approx, bool &show) {
     }
     show = !show;
 }
+*/
 
 // in the linear case, highlight the edges of the t th triangle
 void highlight(ApproxType approx, int t, bool on) {
@@ -125,6 +122,7 @@ int main(int argc, char* argv[]) {
     // default image path and density
     const char *imgPath = "../images/flower.jpg";
 
+    /*
     string inputPath = "../images/"; // to ensure non-null pointer later; find image directory
     if (argc >= 2) {
         inputPath += argv[1];
@@ -249,5 +247,6 @@ int main(int argc, char* argv[]) {
     }
 
     sim.cleanup();
+    */
 	return 0;
 }

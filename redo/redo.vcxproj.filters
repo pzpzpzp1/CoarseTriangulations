@@ -39,6 +39,9 @@
     <ClCompile Include="approx.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Imagem.h">

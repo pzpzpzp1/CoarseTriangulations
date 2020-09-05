@@ -41,7 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Documents\redo\deps\polyscope\include;D:\Documents\redo\deps\lodepng;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Documents\redo\deps\polyscope\deps\imgui\imgui;D:\Documents\redo\deps\polyscope\deps\glm;D:\Documents\redo\deps\polyscope\include;D:\Documents\redo\deps\lodepng;$(IncludePath)</IncludePath>
+    <SourcePath>D:\Documents\redo\deps\polyscope\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -92,6 +93,7 @@
     <ClCompile Include="constant.cpp" />
     <ClCompile Include="Imagem.cpp" />
     <ClCompile Include="linear.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="approx.h" />
