@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Documents\redo\deps\lodepng;D:\Documents\redo\deps\polyscope\include;D:\Documents\redo\deps\polyscope\deps\glm;D:\Documents\redo\deps\polyscope\deps\imgui\imgui;$(IncludePath)</IncludePath>
+    <IncludePath>..\deps\lodepng;..\deps\polyscope\include;..\deps\polyscope\deps\glm;..\deps\polyscope\deps\imgui\imgui;$(IncludePath)</IncludePath>
     <SourcePath>D:\Documents\redo\deps\polyscope\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
