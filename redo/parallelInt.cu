@@ -117,12 +117,12 @@ double ParallelIntegrator::sumArray(int size, int i) {
 		} else {
 			sumBlock<<<numBlocks, threads1D>>>(helper, curSize, arr[i]);
 		}
+		cudaDeviceSynchronize();
 		curSize = numBlocks;
 		numBlocks = (numBlocks + 2 * threads1D - 1) / (2 * threads1D);
 		ansArr = !ansArr;
 	}
 	// at this point the array has been summed
-	cudaDeviceSynchronize();
 	if(ansArr) { // arr should hold the results
 		return arr[i][0];
 	}
@@ -196,6 +196,7 @@ double ParallelIntegrator::constantEnergyApprox(Triangle *tri, double color, dou
 	} else {
 		approxConstantEnergySample<false><<<numBlocks, threads2D>>>(pixArr, maxX, maxY, curTri, curTri+1, curTri+2, color, arr[0], dA, samples);
 	}
+	cudaDeviceSynchronize();
 	double answer = sumArray(samples * (samples + 1) / 2);
 	return answer;
 }
@@ -458,11 +459,7 @@ void ParallelIntegrator::doubleIntApprox(Triangle *tri, double ds, double *resul
 	double dA = tri->getArea() / (samples * samples);
 	switch(approx) {
 		case constant: {
-			cout << arr << endl;
-			cout << arr[0] << endl;
 			constDoubleIntSample<<<numBlocks, threads2D>>>(pixArr, maxX, maxY, curTri, curTri+1, curTri+2, arr[0], dA, samples, channel);
-			cout << arr << endl;
-			cout << arr[0] << endl;
 			break;
 		}
 		case linear: {
@@ -470,6 +467,8 @@ void ParallelIntegrator::doubleIntApprox(Triangle *tri, double ds, double *resul
 			break;
 		}
 	}
+	cudaDeviceSynchronize();
+
 	// store results into result in order aligning with tri
 	// (result[j] is integral of phi_j, which is 1 on tri.vertices[j] and 0 on the other vertices)
 	for(int j = 0; j < approx; j++) {
