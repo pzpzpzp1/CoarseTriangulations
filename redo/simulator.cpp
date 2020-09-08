@@ -20,7 +20,8 @@ Simulator::Simulator(const char *imgPath, Imagem& img, ApproxType approxtype) {
     bool salient = false;
     vector<string> yesAnswers = {"y", "Y"};
     cout << "Use saliency map for feature identification? y/N: ";
-    cin >> saliencyString;
+    // cin >> saliencyString;
+    saliencyString = "n";
     // anything other than y/Y is false
     for(int i = 0; i < yesAnswers.size(); i++) {
         if(saliencyString == yesAnswers.at(i)) {
@@ -65,7 +66,8 @@ Simulator::Simulator(const char *imgPath, Imagem& img, ApproxType approxtype) {
     string trimString;
     bool useTRIM = false; // default to uniform initialization
     cout << "Use TRIM initialization? y/N: ";
-    cin >> trimString;
+    //cin >> trimString;
+    trimString = "n";
     // anything other than y/Y will be false
     for(int i = 0; i < yesAnswers.size(); i++) {
         if(trimString == yesAnswers.at(i)) {
@@ -163,7 +165,8 @@ Simulator::Simulator(const char *imgPath, Imagem& img, ApproxType approxtype) {
     } else {
         // prompt for dx
         cout << "Sample once every __ pixels? ";
-        cin >> dx;
+        dx = DX_DEFAULT;
+        //cin >> dx;
         if(cin.fail()) {
             cin.clear();
             dx = DX_DEFAULT;

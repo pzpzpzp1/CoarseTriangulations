@@ -120,7 +120,7 @@ void highlight(ApproxType approx, int t, bool on) {
 
 int main(int argc, char* argv[]) {
     // default image path and density
-    const char *imgPath = "../images/flower.jpg";
+    const char *imgPath = "../images/skull.png";
 
     string inputPath = "../images/"; // to ensure non-null pointer later; find image directory
     if (argc >= 2) {
@@ -133,7 +133,8 @@ int main(int argc, char* argv[]) {
 
     int degree;
     cout << "Degree of approximation [0/1]: ";
-    cin >> degree;
+    //cin >> degree;
+    degree = 0;
     if(cin.fail() || degree < 0 || degree > 1) {
         cin.clear();
         degree = 0;

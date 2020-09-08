@@ -458,7 +458,11 @@ void ParallelIntegrator::doubleIntApprox(Triangle *tri, double ds, double *resul
 	double dA = tri->getArea() / (samples * samples);
 	switch(approx) {
 		case constant: {
+			cout << arr << endl;
+			cout << arr[0] << endl;
 			constDoubleIntSample<<<numBlocks, threads2D>>>(pixArr, maxX, maxY, curTri, curTri+1, curTri+2, arr[0], dA, samples, channel);
+			cout << arr << endl;
+			cout << arr[0] << endl;
 			break;
 		}
 		case linear: {
