@@ -120,7 +120,7 @@ void highlight(ApproxType approx, int t, bool on) {
 
 int main(int argc, char* argv[]) {
     // default image path and density
-    const char *imgPath = "../images/skull.png";
+    const char *imgPath = "../images/toucan.png";
 
     string inputPath = "../images/"; // to ensure non-null pointer later; find image directory
     if (argc >= 2) {

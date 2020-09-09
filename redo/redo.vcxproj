@@ -80,7 +80,6 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu" />
     <CudaCompile Include="parallelInt.cu" />
     <CudaCompile Include="pixel.cu" />
     <CudaCompile Include="point.cu" />

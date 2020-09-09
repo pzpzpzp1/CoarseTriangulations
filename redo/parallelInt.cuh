@@ -26,7 +26,7 @@ class ParallelIntegrator {
         // thread setup
         static const int threadsX = 32;
         static const int threadsY = 16;
-        static const int threads1D = 1024; // NOTE: changing this will require changes in sumBlock
+        static const int threads1D = 512; // NOTE: changing this will require changes in sumBlock
         dim3 threads2D;
 
         bool initialized = false; // for sake of memory freeing, determine whether integrator is initialized

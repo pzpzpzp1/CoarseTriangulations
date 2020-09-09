@@ -27,7 +27,7 @@ class LinearApprox : public Approx {
 
 	public:
 		// create an approximation instance on img with given stepsize and sampling rate
-		LinearApprox(Imagem& img, double step, double ds = 0.1);
+		LinearApprox(Imagem& img, double step, double ds = 1);
 		// deallocate all the shared space
 		~LinearApprox();
 		ApproxType getApproxType();

@@ -336,7 +336,9 @@ double ParallelIntegrator::lineIntApprox(Triangle *tri, int pt, bool isX, double
 				// actual dx being used
 				double dx = totalLength / samples[i];
 				constLineIntSample<<<numBlocks[i], threads1D>>>(pixArr, maxX, maxY, curTri, curTri+i+1, (i==1), isX, arr[0], dx, samples[i]);
+				cudaError_t cudaStatus = cudaDeviceSynchronize();
 				answer += sumArray(samples[i]);
+				cudaStatus = cudaDeviceSynchronize();
 			}
 			break;
 		}
