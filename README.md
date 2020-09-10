@@ -1,3 +1,5 @@
+![splash image](images/sunset.png)
+![splash image](banner.png)
 # Coarse Triangulations
 
 Given an input image, compute a coarse triangulation approximation of the image. Supported approximations: piecewise constant, and linear. 
@@ -31,15 +33,18 @@ Open the redo.sln file using Visual Studio (not the polyscope sln file).
 Hit the green arrow.
 
 ## Running Triangulations
+
 Takes three commandline arguments:
 
 ./redo.exe filepath degree dx
 
 filepath is a path to the png input image. Defaults to ../images/toucan.png
+
 degree should be 0 or 1 indicating constant or linear color per triangle. Defaults to 0.
+
 dx indicates pixels per triangle width for the initial triangulation. Defaults to 50.
 
-Note that the visual studio solution is set to input commandline arguments when debugging corresponding to:
+Note that the visual studio solution may be set up with preloaded commandline arguments when debugging such as:
 ./redo.exe ../images/toucan.png 1 100
 
 
