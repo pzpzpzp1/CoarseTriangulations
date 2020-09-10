@@ -13,6 +13,7 @@
 
 static const double DENSITY_DEFAULT = 0.05; // experimentally a decent starting density
 static const int DX_DEFAULT = 50; // sampling default
+int screenshotInd = 0;
 
 // let polyscope read values from point
 double adaptorF_custom_accessVector2Value(const Point& p, unsigned int ind) {
@@ -119,33 +120,29 @@ void highlight(ApproxType approx, int t, bool on) {
 }
 
 int main(int argc, char* argv[]) {
-    // default image path and density
-    const char *imgPath = "../images/toucan.png";
-
-    string inputPath = "../images/"; // to ensure non-null pointer later; find image directory
-    if (argc >= 2) {
-        inputPath += argv[1];
-        imgPath = inputPath.c_str();
+    std::string imgPath;
+    if (argc < 2) {
+        // default image path 
+        imgPath = "../images/toucan.png";
+    }
+    else {
+        imgPath.assign(argv[1]);
     }
 
-    // CImg<unsigned char> image(imgPath);
     Imagem image(imgPath);
 
-    int degree;
-    cout << "Degree of approximation [0/1]: ";
-    //cin >> degree;
-    degree = 0;
-    if(cin.fail() || degree < 0 || degree > 1) {
-        cin.clear();
-        degree = 0;
-        cout << "defaulting to constant approximation" << endl;
+    int degree = 0;
+    if (argc >= 3) {
+        degree = atoi(argv[2]);
     }
-
     ApproxType approxtype = (degree == 0) ? constant : linear;
 
-    
-    // wrapper for running approximation
-    Simulator sim(imgPath, image, approxtype);
+    // choose initial pixel rate
+    int dxIn = DX_DEFAULT;
+    if (argc >= 4) {
+        dxIn = atoi(argv[3]);
+    }
+    Simulator sim(imgPath, image, approxtype, dxIn);
 
     // set default values
     int maxIter = 100;
@@ -159,14 +156,18 @@ int main(int argc, char* argv[]) {
         polyscope::view::resetCameraToHomeView();
         polyscope::resetScreenshotIndex();
         // screenshot
-        polyscope::screenshot(true);
         polyscope::screenshot("../outputs/initial.tga", true);
     };
 
     // lambda for making a single step of gradient flow
     auto step = [&]() {
        if(sim.step(maxIter, eps)) {
-            polyscope::screenshot(true);
+           char buff[50];
+           snprintf(buff, 50, "../outputs/screenshot_%d.tga", screenshotInd);
+           std::string defaultName(buff);
+
+           polyscope::screenshot(defaultName, true);
+           screenshotInd ++;
        } else {
            polyscope::warning("done");
        }
@@ -175,14 +176,24 @@ int main(int argc, char* argv[]) {
     // lambda for running the entire gradient flow
     auto runGradient = [&]() {
        while(sim.step(maxIter, eps)) {
-           polyscope::screenshot(true);
+           char buff[50];
+           snprintf(buff, 50, "../outputs/screenshot_%d.tga", screenshotInd);
+           std::string defaultName(buff);
+
+           polyscope::screenshot(defaultName, true);
+           screenshotInd++;
        }
     };
 
     // lambda for retriangulating by subdivision
     auto retriangulate = [&]() {
         sim.retriangulate(subdivisions);
-        polyscope::screenshot(true);
+        char buff[50];
+        snprintf(buff, 50, "../outputs/screenshot_%d.tga", screenshotInd);
+        std::string defaultName(buff);
+
+        polyscope::screenshot(defaultName, true);
+        screenshotInd++;
     };
 
     // lambda to handle GUI updates

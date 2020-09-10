@@ -11,7 +11,7 @@ class Imagem
 		int height;
 		std::vector<unsigned char> data;
 
-		Imagem(const char* filename);
+		Imagem(std::string filename);
 		Imagem(int widtha, int heighta, std::vector<unsigned char> image);
 		~Imagem();
 

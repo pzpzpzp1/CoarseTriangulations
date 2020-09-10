@@ -379,7 +379,7 @@ void Approx::subdivide(int n) {
 				// check for ccw orientation
 				array<int, 2> orderedEdge = {edge[0], edge[1]};
 				if(Triangle::getSignedArea(points + oppositeInd, points + edge[0], points + edge[1]) < 0) {
-					orderedEdge = {edge[1], edge[2]};
+					orderedEdge = {edge[1], edge[0]};
 				}
 				newTriangles.push_back({oppositeInd, orderedEdge[0], numPoints + numDivided});
 				newTriangles.push_back({oppositeInd, numPoints + numDivided, orderedEdge[1]});

@@ -1,6 +1,6 @@
 #include "simulator.h"
 
-Simulator::Simulator(const char *imgPath, Imagem& img, ApproxType approxtype) {
+Simulator::Simulator(string imgPath, Imagem& img, ApproxType approxtype, int dxIn) {
     // get dimensions of image
     int maxX = img.width;
     int maxY = img.height;
@@ -11,29 +11,10 @@ Simulator::Simulator(const char *imgPath, Imagem& img, ApproxType approxtype) {
         approx = new LinearApprox(img, STARTING_STEP);
     }
 
-    //cout << "connecting to matlab... " << flush;
-    //matlabPtr = startMATLAB();
-    //cout << "done" << endl;
-
     // determine whether to use saliency map
     string saliencyString;
     bool salient = false;
-    vector<string> yesAnswers = {"y", "Y"};
-    cout << "Use saliency map for feature identification? y/N: ";
-    // cin >> saliencyString;
-    saliencyString = "n";
-    // anything other than y/Y is false
-    for(int i = 0; i < yesAnswers.size(); i++) {
-        if(saliencyString == yesAnswers.at(i)) {
-            salient = true;
-        }
-    }
-
-    /* TODO: set saliency with matlab saliency map 
-     * current code already connects to matlab,
-     * change would just be changing matlab function call
-     * and arguments */
-    // assign pixel saliency values
+    // TODO: set saliency with matlab saliency map 
     /*if(salient) { // for now this is just a Gaussian with standard dev 1/4 the diagonal length
         double stdev = 0.25 * sqrt(maxX * maxX + maxY * maxY);
         // matlab will generate a square filter
@@ -62,119 +43,10 @@ Simulator::Simulator(const char *imgPath, Imagem& img, ApproxType approxtype) {
         approx->setSaliency(saliencyValues);
     }*/
 
-    // determine initialization method
-    string trimString;
-    bool useTRIM = false; // default to uniform initialization
-    cout << "Use TRIM initialization? y/N: ";
-    //cin >> trimString;
-    trimString = "n";
-    // anything other than y/Y will be false
-    for(int i = 0; i < yesAnswers.size(); i++) {
-        if(trimString == yesAnswers.at(i)) {
-            useTRIM = true;
-        }
-    }
-
     // initialize triangulation
-    useTRIM = 0;
-    if(useTRIM) { // get initial triangulation from matlab TRIM functions
-        // prompt for density
-        /*
-        cout << "Density argument: ";
-        cin >> density;
-        if(cin.fail()) {
-            cin.clear();
-            cout << "defaulting to " << DENSITY_DEFAULT << endl;
-            density = DENSITY_DEFAULT;
-        }
-        // add path to TRIM code
-        vector<matlab::data::Array> genPathArgs({
-            factory.createCharArray("../deps/trim")
-        });
-        auto generatedPath = matlabPtr->feval(u"genpath",genPathArgs);
-        matlabPtr->feval(u"addpath", generatedPath);
-
-        // read image
-        vector<matlab::data::Array> pathToImage({
-            factory.createCharArray(imgPath)
-        });
-        auto img = matlabPtr->feval(u"imread", pathToImage);
-
-        // generate triangulation
-        vector<matlab::data::Array> tArgs({
-            img,
-            factory.createScalar<double>(density) // density 
-        });
-        cout << "Triangulating...\n";
-        vector<matlab::data::Array> output = matlabPtr->feval(u"imtriangulate", 3, tArgs);
-        cout << "done\n";
-        // vertices of triangulation
-        matlab::data::Array vertices = output.at(0);
-        matlab::data::Array triangleConnections = output.at(1);
-        int n = vertices.getDimensions().at(0); // number of points in triangulation
-
-        // initialize points of mesh
-        cout << "Getting " << n << " points...\n";
-        vector<Point> points;
-        // appears to affect only large images:
-        // adjust image boundaries to TRIM result (may crop a line of pixels)
-        int minX = 1000;
-        int minY = 1000;
-        int maxX = 0;
-        int maxY = 0;
-        for(int i = 0; i < n; i++) {
-            int x = vertices[i][0];
-            int y = vertices[i][1];
-            maxX = max(x, maxX);
-            maxY = max(y, maxY);
-            minX = min(x, minX);
-            minY = min(y, minY);
-        }
-        for(int i = 0; i < n; i++) {
-            // note these are 1-indexed pixel values; will need
-            // to convert to usable points 
-            int x = vertices[i][0];
-            int y = vertices[i][1];
-            // determine whether this point lies on edge of image
-            bool isBorderX = (x == minX || x == maxX);
-            bool isBorderY = (y == minY || y == maxY);
-            Point p(x-0.5 - minX, y-0.5 - minY, isBorderX, isBorderY); // translate to coordinate system in this code
-            points.push_back(p);
-        }
-        cout << "done\n";
-
-        // convert connections to vector<vector<int>>
-        cout << "Getting edges...\n";
-        vector<array<int, 3>> edges;
-        int f = triangleConnections.getDimensions().at(0); // number of triangles
-        cout << "number of triangles: " << f << endl;
-        for(int i = 0; i < f; i++) {
-            array<int, 3> vertexInds;
-            for(int j = 0; j < 3; j++) {
-                // matlab is 1 indexed for some bizarre reason;
-                // change back to zero indexing
-                int ind = triangleConnections[i][j];
-                vertexInds[j] = ind - 1;
-            }
-            edges.push_back(vertexInds);
-        }
-        cout << "done\n";
-        cout << "Initializing mesh...\n";
-        approx->initialize(points, edges);
-        */
-    } else {
-        // prompt for dx
-        cout << "Sample once every __ pixels? ";
-        dx = DX_DEFAULT;
-        //cin >> dx;
-        if(cin.fail()) {
-            cin.clear();
-            dx = DX_DEFAULT;
-            cout << "defaulting to " << DX_DEFAULT << endl;
-        }
-        approx->initialize(dx);
-    }
-    cout << "ready\n";
+    dx = dxIn;
+    approx->initialize(dx);
+    cout << "Simulator initialized.\n";
 }
 
 Simulator::~Simulator() {

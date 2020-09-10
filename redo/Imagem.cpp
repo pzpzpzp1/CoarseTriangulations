@@ -1,7 +1,7 @@
 #include "Imagem.h"
 #include <vector>
 
-Imagem::Imagem(const char* filename) {
+Imagem::Imagem(std::string filename) {
     unsigned widtha, heighta;
 
     //decode

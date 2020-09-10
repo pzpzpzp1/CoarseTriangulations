@@ -351,7 +351,9 @@ double ParallelIntegrator::lineIntApprox(Triangle *tri, int pt, bool isX, double
 					// (also prevent zero division error)
 					samples[i] = max(samples[i], 2);
 					linearLineIntSample<<<numBlocks[i], threads1D>>>(pixArr, maxX, maxY, curTri, curTri+i+1, (i==1), isX, arr[0], samples[i]-1, true);
+					cudaDeviceSynchronize();
 					answer += totalLength * sumArray(samples[i]) / samples[i];
+					cudaDeviceSynchronize();
 				}
 			} else { // integrate along segment pt, basisInd
 				int offset = (basisInd - pt + 3) % 3; // index of basisInd relative to pt
@@ -360,7 +362,9 @@ double ParallelIntegrator::lineIntApprox(Triangle *tri, int pt, bool isX, double
 				// ensure at least 2 points are sampled
 				samples[i] = max(samples[i], 2);
 				linearLineIntSample<<<numBlocks[i], threads1D>>>(pixArr, maxX, maxY, curTri, curTri+offset, (offset==2), isX, arr[0], samples[i]-1, false);
+				cudaDeviceSynchronize();
 				answer += totalLength * sumArray(samples[i]) / samples[i];
+				cudaDeviceSynchronize();
 			}
 			break;
 		case quadratic:
@@ -532,6 +536,7 @@ double ParallelIntegrator::linearEnergyApprox(Triangle *tri, double *coeffs, dou
 		approxLinearEnergySample<false><<<numBlocks, threads2D>>>(pixArr, maxX, maxY, curTri, curTri + 1, curTri + 2,
 			coeffs[i], coeffs[(i+1)%3], coeffs[(i+2)%3], arr[0], dA, samples);
 	}
+	cudaDeviceSynchronize();
 	double answer = sumArray(samples * (samples + 1) / 2);
 	return answer;
 }
@@ -602,6 +607,7 @@ void ParallelIntegrator::linearImageGradient(Triangle *tri, int pt, bool isX, do
 	} else {
 		linearImageGradientY<<<numBlocks, threads2D>>>(pixArr, maxX, maxY, curTri, arr, dA, dA_y, samples);
 	}
+	cudaDeviceSynchronize();
 	for(int j = 0; j < approx; j++) {
 		int relativeBasis = (j - pt + approx) % approx; // align curTri with ordering of basis elements
 		result[j] = sumArray(samples * (samples + 1) / 2, relativeBasis) / (2 * tri->getArea());

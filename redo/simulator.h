@@ -31,8 +31,7 @@ void highlight(ApproxType approx, int t, bool on = true);
 class Simulator {
     private:
         static constexpr double DENSITY_DEFAULT = 0.05; // experimentally a decent starting density
-        static const int DX_DEFAULT = 50; // sampling default
-
+        
         static constexpr double STARTING_STEP = 0.00625; // starting step size
 
         //std::unique_ptr<MATLABEngine> matlabPtr;
@@ -64,7 +63,7 @@ class Simulator {
 
     public:
         // create an approximation instance from an image path
-        Simulator(const char *imgPath, Imagem& img, ApproxType approxtype);
+        Simulator(string imgPath, Imagem& img, ApproxType approxtype, int dxIn);
         ~Simulator();
 
         // display the starting triangulation
